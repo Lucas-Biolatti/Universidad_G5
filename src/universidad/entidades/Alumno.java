@@ -26,6 +26,10 @@ public class Alumno {
     public Alumno() {
     }
 
+    public Alumno(int idAlumno) {
+        this.idAlumno = idAlumno;
+    }
+
     public Alumno(int idAlumno, String nombre, LocalDate fecNac, boolean activo) {
         this.idAlumno = idAlumno;
         this.nombre = nombre;
@@ -64,6 +68,13 @@ public class Alumno {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+
+    @Override
+    public String toString() {
+        return "ID: "+idAlumno + "| Nombre: " + nombre + "| Fecha de Nac: "+fecNac + "| Alumno Activo?=" + activo;
+    }
+    
+    
     
     
     

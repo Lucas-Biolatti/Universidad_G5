@@ -55,6 +55,13 @@ public class Inscripcion {
     public void setNota(double nota) {
         this.nota = nota;
     }
+
+    @Override
+    public String toString() {
+        return "ID: " + idInscripcion + "| Alumno: " + alumno.getIdAlumno() + "| Materia: " + materia.getIdMateria() + "| Nota: " + nota;
+    }
+    
+    
     
     
 }

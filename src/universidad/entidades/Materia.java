@@ -20,6 +20,11 @@ public class Materia {
     }
     public Materia() {
     }
+
+    public Materia(int idMateria) {
+        this.idMateria = idMateria;
+    }
+    
     public Materia(String nombreMateria){
         this.nombreMateria=nombreMateria;
     }
@@ -39,6 +44,12 @@ public class Materia {
     public void setNombreMateria(String nombreMateria) {
         this.nombreMateria = nombreMateria;
     }
+
+    @Override
+    public String toString() {
+        return "ID: " + idMateria + "| Nombre: " + nombreMateria;
+    }
+    
 
     
     
