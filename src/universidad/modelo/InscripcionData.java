@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import universidad.entidades.Alumno;
 import universidad.entidades.Inscripcion;
@@ -66,7 +67,38 @@ public class InscripcionData {
         }
         
         
+        con.close();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,"No se encontro la Inscripcion");
+        }
+    return inscripciones;
+    }
+    
+    public List<Inscripcion> obtenerInscripcionXAlumno(int id){
+         String sql="SELECT * FROM inscripcion WHERE idAlumno=?;";
+        Inscripcion in=null;
+        Alumno al=null;
+        Materia ma=null;
+        List<Inscripcion> inscripciones = new ArrayList<>();
         
+        try{
+            
+        PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+          ps.setInt(1, id);
+        ResultSet rs= ps.executeQuery();
+        while(rs.next()){
+            al=new Alumno(rs.getInt("idAlumno"));
+            ma=new Materia(rs.getInt("idMateria"));
+            in=new Inscripcion();
+            in.setAlumno(al);
+            in.setMateria(ma);
+            in.setNota(rs.getDouble("nota"));
+            in.setIdInscripcion(rs.getInt("idInscripcion"));
+            inscripciones.add(in);
+        }
+        
+        
+        con.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"No se encontro la Inscripcion");
         }
