@@ -41,8 +41,11 @@ public class Universidad {
      //Inscripcion i2=new Inscripcion(ad.buscarAlumno(5),md.buscarMateria(1),7);
      //indat.guardarInscripcion(i2);
      
-       System.out.println(indat.obtenerInscripcionXAlumno(5));
-    
+       //System.out.println(indat.obtenerInscripcionesXAlumno(6)); funciona ok
+       //System.out.println(indat.obtenerInscripciones()); funciona ok
+       //System.out.println(indat.obtenerInscripcionesXMateria(2)); funciona ok
+       //System.out.println(indat.buscarInscripcion(6)); finciona ok
+       //indat.actualizarNota(2, 1, 6); funciona ok
     }
     
 }

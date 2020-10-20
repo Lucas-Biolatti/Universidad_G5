@@ -43,11 +43,11 @@ public class InscripcionData {
                 }
     }
     
-    public List<Inscripcion> obtenerInscripcion(){
+    public List<Inscripcion> obtenerInscripciones(){
         String sql="SELECT * FROM inscripcion;";
-        Inscripcion in=null;
-        Alumno al=null;
-        Materia ma=null;
+        Inscripcion in;
+        //Alumno al=null;
+        //Materia ma=null;
         List<Inscripcion> inscripciones = new ArrayList<>();
         
         try{
@@ -56,11 +56,42 @@ public class InscripcionData {
                
         ResultSet rs= ps.executeQuery();
         while(rs.next()){
-            al=new Alumno(rs.getInt("idAlumno"));
-            ma=new Materia(rs.getInt("idMateria"));
+            //al=new Alumno(rs.getInt("idAlumno"));
+            //ma=new Materia(rs.getInt("idMateria"));
             in=new Inscripcion();
-            in.setAlumno(al);
-            in.setMateria(ma);
+            in.setAlumno(buscarAlumno(rs.getInt("idAlumno")));
+            in.setMateria(buscarMateria(rs.getInt("idMateria")));
+            in.setNota(rs.getDouble("nota"));
+            in.setIdInscripcion(rs.getInt("idInscripcion"));
+            inscripciones.add(in);
+        }
+        
+        
+        con.close();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,"No se pudo ejecutar la busqueda");
+        }
+    return inscripciones;
+    }
+    
+    public List<Inscripcion> obtenerInscripcionesXAlumno(int id){
+         String sql="SELECT * FROM inscripcion WHERE idAlumno=?;";
+        Inscripcion in=null;
+        //Alumno al=null;
+        //Materia ma=null;
+        List<Inscripcion> inscripciones = new ArrayList<>();
+        
+        try{
+            
+        PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+          ps.setInt(1, id);
+        ResultSet rs= ps.executeQuery();
+        while(rs.next()){
+            //al=new Alumno(rs.getInt("idAlumno"));
+            //ma=new Materia(rs.getInt("idMateria"));
+            in=new Inscripcion();
+            in.setAlumno(buscarAlumno(rs.getInt("idAlumno")));
+            in.setMateria(buscarMateria(rs.getInt("idMateria")));
             in.setNota(rs.getDouble("nota"));
             in.setIdInscripcion(rs.getInt("idInscripcion"));
             inscripciones.add(in);
@@ -74,35 +105,79 @@ public class InscripcionData {
     return inscripciones;
     }
     
-    public List<Inscripcion> obtenerInscripcionXAlumno(int id){
-         String sql="SELECT * FROM inscripcion WHERE idAlumno=?;";
-        Inscripcion in=null;
-        Alumno al=null;
-        Materia ma=null;
-        List<Inscripcion> inscripciones = new ArrayList<>();
+    public Inscripcion buscarInscripcion(int id){
+    String sql="SELECT * FROM inscripcion WHERE idInscripcion=?";
+    Inscripcion in = null;
+    try{
+        PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
         
-        try{
-            
-        PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-          ps.setInt(1, id);
-        ResultSet rs= ps.executeQuery();
-        while(rs.next()){
-            al=new Alumno(rs.getInt("idAlumno"));
-            ma=new Materia(rs.getInt("idMateria"));
-            in=new Inscripcion();
-            in.setAlumno(al);
-            in.setMateria(ma);
-            in.setNota(rs.getDouble("nota"));
-            in.setIdInscripcion(rs.getInt("idInscripcion"));
-            inscripciones.add(in);
-        }
-        
-        
-        con.close();
+        if(rs.next()){
+        in=new Inscripcion();
+        in.setIdInscripcion(rs.getInt("idInscripcion"));
+        in.setAlumno(buscarAlumno(rs.getInt("idAlumno")));
+        in.setMateria(buscarMateria(rs.getInt("idMateria")));
+        in.setNota(rs.getDouble("nota"));
+        } 
+        ps.close();
+    
         }catch(SQLException e){
-            JOptionPane.showMessageDialog(null,"No se encontro la Inscripcion");
-        }
-    return inscripciones;
+                JOptionPane.showMessageDialog(null,"No se encontro el id seleccionado");
+            }
+            return in;
     }
+    
+    public List<Inscripcion> obtenerInscripcionesXMateria(int id){
+        String sql="SELECT * FROM inscripcion WHERE idMateria=?;";
+        Inscripcion in;
+        List<Inscripcion> inscripciones=new ArrayList<>();
+        try{
+            PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+            in=new Inscripcion();
+            in.setIdInscripcion(rs.getInt("idInscripcion"));
+            in.setAlumno(buscarAlumno(rs.getInt("idAlumno")));
+            in.setMateria(buscarMateria(rs.getInt("idMateria")));
+            in.setNota(rs.getDouble("nota"));
+            inscripciones.add(in);
+            }
+            ps.close();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null,"no se encontro el id de la materia");
+            }
+            return inscripciones;
+    }
+    
+    public void actualizarNota(int idAlumno,int idMateria,double nota){
+    String sql="UPDATE inscripcion SET nota=? WHERE idAlumno=? AND idMateria=?;";
+    
+    try{
+        PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+        ps.setDouble(1, nota);
+        ps.setInt(2, idAlumno);
+        ps.setInt(3, idMateria);
+      ps.executeUpdate();
+      JOptionPane.showMessageDialog(null,"La nota se actualizo correctamente");
+      
+    }catch(SQLException e){
+        JOptionPane.showMessageDialog(null,"No se pudo actualizar la Nota");
+    }
+    
+    }
+    
+    ////////////////////////////METODOS AUXILIARES////////////////////
+    public Alumno buscarAlumno(int id){
+        Conexion c=new Conexion(); 
+        AlumnoData ad=new AlumnoData(c);
+        return ad.buscarAlumno(id);
+     }
+    public Materia buscarMateria(int id){
+        Conexion c=new Conexion(); 
+        MateriaData md=new MateriaData(c);
+        return md.buscarMateria(id);
+     }
     
 }
