@@ -168,6 +168,20 @@ public class InscripcionData {
     
     }
     
+    public void eliminarInscripcion(int id){
+    String sql="DELETE FROM inscripcion WHERE idInscripcion=?";
+    try{
+    PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+    
+    ps.setInt(1, id);
+    ps.executeUpdate();
+    JOptionPane.showMessageDialog(null,"La inscripcion fue eliminada con exito");
+    ps.close();
+        }catch(SQLException e){
+        JOptionPane.showMessageDialog(null,"No se pudo eliminar la Inscripcion");
+        }
+    
+    }
     ////////////////////////////METODOS AUXILIARES////////////////////
     public Alumno buscarAlumno(int id){
         Conexion c=new Conexion(); 

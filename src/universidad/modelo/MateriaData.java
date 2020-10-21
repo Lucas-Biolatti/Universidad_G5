@@ -27,7 +27,7 @@ public class MateriaData {
             ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
         ps.setString(1,m.getNombreMateria());
         ps.executeUpdate();
-        
+        JOptionPane.showMessageDialog(null,"La materia se agrego exitosamente");
         ResultSet rs= ps.getGeneratedKeys();
         
         if(rs.next()){
@@ -55,7 +55,7 @@ public class MateriaData {
               m=new Materia();
               m.setIdMateria(rs.getInt(1));
               m.setNombreMateria(rs.getString("nombreMateria"));
-                        
+              //System.out.println(m.getNombreMateria());         
           }
           ps.close();
         
@@ -82,6 +82,7 @@ public class MateriaData {
               m.setNombreMateria(rs.getString("nombreMateria"));
               m.setIdMateria(rs.getInt("idMateria"));
               materias.add(m);
+              System.out.println(m.getNombreMateria());
           }
           ps.close();
         
@@ -102,6 +103,7 @@ public class MateriaData {
                 ps.setInt(2,m.getIdMateria());
                 ps.executeUpdate();
                 ps.close();
+                JOptionPane.showMessageDialog(null,"La materia se actualizo con exito");
             
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(null,"No se logro Actualizar la materia" );
@@ -117,7 +119,7 @@ public class MateriaData {
                 ps.setInt(1, id);
                 ps.executeUpdate();
                 ps.close();
-                
+                JOptionPane.showMessageDialog(null,"La materia fue eliminada con exito");
             
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(null,"No se pudo eliminar la materia con el ID seleccionado");

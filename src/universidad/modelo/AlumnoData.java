@@ -85,6 +85,7 @@ public class AlumnoData {
              al.setFecNac(rs.getDate("fecNac").toLocalDate());
              al.setActivo(rs.getBoolean("activo"));
              alumnos.add(al);
+                System.out.println(al.getNombre());
              }
      
          con.close();
@@ -111,7 +112,7 @@ public class AlumnoData {
     con.close();
     
     }catch(SQLException e){
-           JOptionPane.showMessageDialog(null,"No se pudo guardar Alumno");
+           JOptionPane.showMessageDialog(null,"No se pudo Actualizar Alumno");
         }
  }
      
@@ -124,6 +125,7 @@ public class AlumnoData {
                 ps.setInt(1, id);
                 ps.executeUpdate();
                 ps.close();
+                JOptionPane.showMessageDialog(null,"El alumno fue eliminado con exito");
             }
             catch(SQLException e){
             JOptionPane.showMessageDialog(null,"No se pudo borrar el alumno indicado");            }
