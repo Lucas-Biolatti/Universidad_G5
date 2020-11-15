@@ -168,12 +168,13 @@ public class InscripcionData {
     
     }
     
-    public void eliminarInscripcion(int id){
-    String sql="DELETE FROM inscripcion WHERE idInscripcion=?";
+    public void eliminarInscripcion(int idAlum,int idMat){
+    String sql="DELETE FROM inscripcion WHERE inscripcion.idAlumno=? and inscripcion.idMateria=?; ";
     try{
     PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
     
-    ps.setInt(1, id);
+    ps.setInt(1, idAlum);
+    ps.setInt(2, idMat);
     ps.executeUpdate();
     JOptionPane.showMessageDialog(null,"La inscripcion fue eliminada con exito");
     ps.close();
@@ -194,4 +195,42 @@ public class InscripcionData {
         return md.buscarMateria(id);
      }
     
+    public List<Materia> obtenerMateriasCursadas(int id){
+        List<Materia> materias = new ArrayList<Materia>();
+        Materia m;
+        String sql="SELECT materia.idMateria,nombreMateria FROM inscripcion,materia WHERE inscripcion.idMateria=materia.idMateria and inscripcion.idAlumno=?";
+        try{
+            PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                m=new Materia();
+                m.setIdMateria(rs.getInt("idMateria"));
+                m.setNombreMateria(rs.getString("nombreMateria"));
+                materias.add(m);
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,"No se pudo obtener las materias");
+        }
+        return materias;
+    }
+    public List<Materia> obtenerMateriasNoCursadas(int id){
+        List<Materia> materias = new ArrayList<Materia>();
+        Materia m;
+        String sql="SELECT * FROM `materia` WHERE idMateria NOT IN(SELECT idMateria from inscripcion WHERE inscripcion.idAlumno=?);";
+        try{
+            PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                m=new Materia();
+                m.setIdMateria(rs.getInt("idMateria"));
+                m.setNombreMateria(rs.getString("nombreMateria"));
+                materias.add(m);
+            }
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null,"No se pudo obtener las materias");
+        }
+        return materias;
+    }
 }

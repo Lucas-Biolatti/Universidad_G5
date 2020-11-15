@@ -152,7 +152,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mAlumnoActionPerformed
 
     private void mInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mInscripcionActionPerformed
-        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaIncripcion vi=new VistaIncripcion();
+        vi.setVisible(true);
+        escritorio.add(vi);
+        escritorio.moveToFront(vi);
+        
     }//GEN-LAST:event_mInscripcionActionPerformed
 
     private void mNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mNotasActionPerformed

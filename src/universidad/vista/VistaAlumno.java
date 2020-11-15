@@ -50,6 +50,11 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         btBorrar = new javax.swing.JButton();
         btLimpiar = new javax.swing.JButton();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel1.setFont(new java.awt.Font("Agency FB", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("FORMULARIO - ALUMNO");
@@ -231,6 +236,8 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         tNombre.setText("");
         tFechaNac.setText("");
         jCheckActivo.setSelected(false);
+       
+        
         
     }//GEN-LAST:event_btLimpiarActionPerformed
 
