@@ -23,6 +23,7 @@ public class Universidad {
       /////////////////NUEVO ALUMNODATA///////////////
        AlumnoData ad=new AlumnoData(c);
        
+       
        ///////////////PRUEBA ALUMNODATA//////////////
        //ad.guardarAlumno(juan);//Funciona ok
        //System.out.println(ad.buscarAlumno(6));//funciona ok

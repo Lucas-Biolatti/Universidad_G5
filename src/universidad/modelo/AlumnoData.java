@@ -46,14 +46,14 @@ public class AlumnoData {
  }
     public Alumno buscarAlumno(int id){
         String sql="Select * from alumno Where idAlumno=?;";
-        Alumno al=null;
+        Alumno al=new Alumno();
         try{
             PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);  
             ps.setInt(1, id);
             ResultSet rs= ps.executeQuery();
         
             if(rs.next()){
-             al=new Alumno();
+            
              al.setIdAlumno(rs.getInt("idAlumno"));
              al.setNombre(rs.getString("nombreAlumno"));
              al.setFecNac(rs.getDate("fecNac").toLocalDate());
