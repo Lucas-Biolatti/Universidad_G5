@@ -113,6 +113,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jMenu6.setText("Consultas");
 
         mListadoAlMat.setText("Listado de alumnos por materia");
+        mListadoAlMat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mListadoAlMatActionPerformed(evt);
+            }
+        });
         jMenu6.add(mListadoAlMat);
 
         jMenuBar1.add(jMenu6);
@@ -135,10 +140,17 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void mSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSalirActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_mSalirActionPerformed
 
     private void mMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mMateriaActionPerformed
         // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaMateria vmat=new VistaMateria();
+        vmat.setVisible(true);
+        escritorio.add(vmat);
+        escritorio.moveToFront(vmat);
     }//GEN-LAST:event_mMateriaActionPerformed
 
     private void mAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAlumnoActionPerformed
@@ -163,7 +175,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void mNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mNotasActionPerformed
         // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaCargaNota vcn=new VistaCargaNota();
+        vcn.setVisible(true);
+        escritorio.add(vcn);
+        escritorio.moveToFront(vcn);
     }//GEN-LAST:event_mNotasActionPerformed
+
+    private void mListadoAlMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mListadoAlMatActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaAlumnosMateria vam=new VistaAlumnosMateria();
+        vam.setVisible(true);
+        escritorio.add(vam);
+        escritorio.moveToFront(vam);
+    }//GEN-LAST:event_mListadoAlMatActionPerformed
 
     /**
      * @param args the command line arguments

@@ -38,7 +38,7 @@ public class AlumnoData {
      }else {
         JOptionPane.showMessageDialog(null,"No se pudo obtener el id");
     }
-    con.close();
+    ps.close();
     
     }catch(SQLException e){
            JOptionPane.showMessageDialog(null,"No se pudo guardar Alumno");
@@ -60,7 +60,7 @@ public class AlumnoData {
              al.setActivo(rs.getBoolean("activo"));
              }
      
-         con.close();
+         ps.close();
          
         }
      catch(SQLException e){
@@ -88,7 +88,7 @@ public class AlumnoData {
                 System.out.println(al.getNombre());
              }
      
-         con.close();
+         ps.close();
          
         }
      catch(SQLException e){
@@ -109,7 +109,7 @@ public class AlumnoData {
     ps.executeUpdate();
     JOptionPane.showMessageDialog(null,"La modificacion ha sido exitosa");
     
-    con.close();
+    ps.close();
     
     }catch(SQLException e){
            JOptionPane.showMessageDialog(null,"No se pudo Actualizar Alumno");

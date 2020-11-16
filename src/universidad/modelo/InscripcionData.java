@@ -36,7 +36,7 @@ public class InscripcionData {
                i.setIdInscripcion(rs.getInt(1));
                }else {JOptionPane.showMessageDialog(null,"No se Pudo obtener el id");}
                
-               con.close();
+               ps.close();
                JOptionPane.showMessageDialog(null,"El alumno se guardo con exito");
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(null, "No se pudo registrar la Inscripcion");
@@ -67,7 +67,7 @@ public class InscripcionData {
         }
         
         
-        con.close();
+        ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"No se pudo ejecutar la busqueda");
         }
@@ -98,7 +98,7 @@ public class InscripcionData {
         }
         
         
-        con.close();
+        ps.close();
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"No se encontro la Inscripcion");
         }
@@ -151,17 +151,17 @@ public class InscripcionData {
             return inscripciones;
     }
     
-    public void actualizarNota(int idAlumno,int idMateria,double nota){
-    String sql="UPDATE inscripcion SET nota=? WHERE idAlumno=? AND idMateria=?;";
+    public void actualizarNota(int idInscripcion,int idMateria,double nota){
+    String sql="UPDATE inscripcion SET nota=? WHERE idInscripcion=? AND idMateria=?;";
     
     try{
         PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
         ps.setDouble(1, nota);
-        ps.setInt(2, idAlumno);
+        ps.setInt(2, idInscripcion);
         ps.setInt(3, idMateria);
       ps.executeUpdate();
       JOptionPane.showMessageDialog(null,"La nota se actualizo correctamente");
-      
+      ps.close();
     }catch(SQLException e){
         JOptionPane.showMessageDialog(null,"No se pudo actualizar la Nota");
     }
@@ -208,6 +208,8 @@ public class InscripcionData {
                 m.setIdMateria(rs.getInt("idMateria"));
                 m.setNombreMateria(rs.getString("nombreMateria"));
                 materias.add(m);
+                
+                ps.close();
             }
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"No se pudo obtener las materias");
@@ -227,6 +229,8 @@ public class InscripcionData {
                 m.setIdMateria(rs.getInt("idMateria"));
                 m.setNombreMateria(rs.getString("nombreMateria"));
                 materias.add(m);
+                
+                ps.close();
             }
         }catch(SQLException e){
             JOptionPane.showMessageDialog(null,"No se pudo obtener las materias");

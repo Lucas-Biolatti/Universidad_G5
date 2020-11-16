@@ -41,6 +41,7 @@ public class Universidad {
        //System.out.println(md.buscarMateria(6));//funciona ok
        //md.obtenerMaterias();//funciona ok
        //md.actualizarMateria(new Materia(6,"Prog Web"));//funciona ok
+       md.eliminarMateria(7);
       
       
      
@@ -53,6 +54,7 @@ public class Universidad {
        //indat.guardarInscripcion(new Inscripcion(new Alumno(2),new Materia(3),7.5));//Funciona OK
         //Inscripcion i2=new Inscripcion(ad.buscarAlumno(5),md.buscarMateria(1),7);
         //indat.guardarInscripcion(i2);
+        //System.out.println(indat.obtenerInscripcionesXAlumno(5));
         
         ///////////////////////PRUEBAS DE INSCRIPCIONDATA////////////////////////
        // System.out.println(indat.obtenerInscripcionesXAlumno(5)); //funciona ok

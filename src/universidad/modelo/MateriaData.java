@@ -36,7 +36,7 @@ public class MateriaData {
             JOptionPane.showMessageDialog(null,"No se logro recuperar el id de la materia");
         }
         
-        con.close();
+        ps.close();
         }catch(SQLException e){
                 JOptionPane.showMessageDialog(null,"No se logro insertar la materia");
             }
@@ -118,9 +118,9 @@ public class MateriaData {
                 PreparedStatement ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, id);
                 ps.executeUpdate();
-                ps.close();
+               
                 JOptionPane.showMessageDialog(null,"La materia fue eliminada con exito");
-            
+             ps.close();
             }catch(SQLException e){
                 JOptionPane.showMessageDialog(null,"No se pudo eliminar la materia con el ID seleccionado");
             }
